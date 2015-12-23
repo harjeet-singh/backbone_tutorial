@@ -10,10 +10,9 @@ and open the template in the editor.
         <link rel="icon" type="img/ico" href="img/favicon.ico">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>-->
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="lib/bootstrap.min.css">
+        <script src="lib/jquery.min.js"></script>
+        <script src="lib/bootstrap.min.js"></script>
     </head>
     <body>
         
@@ -89,33 +88,14 @@ and open the template in the editor.
         <script src="router.js"></script>
         <script src="view.js"></script>
         <script src="model.js"></script>
+        <script src="config.js"></script>
         <script>
-            $.ajaxPrefilter(function( options ) {
-                    options.url = "http://localhost/BackboneTutorial/rest/v2" +options.url;
-            });
             
-            $.fn.serializeObject = function() {
-                var o = {};
-                var a = this.serializeArray();
-                $.each(a, function() {
-                    if (o[this.name] !== undefined) {
-                        if (!o[this.name].push) {
-                            o[this.name] = [o[this.name]];
-                        }
-                        o[this.name].push(this.value || '');
-                    } else {
-                        o[this.name] = this.value || '';
-                    }
-                });
-            return o;
-          };
-     
-          var router = new app.router();
-          var userLogin = new app.LoginUserView();
-          var userList = new app.UserListView();
-          var editUser = new app.EditUserView();
-          
-          console.log(router);
+        var router = new app.router();
+        var userLogin = new app.LoginUserView();
+        var userList = new app.UserListView();
+        var editUser = new app.EditUserView();
+
           
         router.on('route:login', function(){
            userLogin.render();
@@ -135,8 +115,7 @@ and open the template in the editor.
             router.navigate('',{trigger:true});
         });
 
-
-        app.start();
+    app.start();
         
         </script>
     </body>

@@ -82,15 +82,15 @@ class MyAPI extends API
             
                 if(isset($username) && isset($password)){
 
-                    if(isset($_SESSION[$username])){
-                        return $_SESSION[$username];
+                    if(isset($_SESSION['Token'])){
+                        return $_SESSION['Token'];
                     }
                     else{
                         $user_authenticated = MyDB::getInstance()->authenticateUser($username, $password);
                         if($user_authenticated){
                             //$this->User->loadUser($username, $password);
-                            $_SESSION[$username] = uniqid();
-                            return $_SESSION[$username];
+                            $_SESSION['Token'] = uniqid();
+                            return $_SESSION['Token'];
                         }
                         else{
                             throw new Exception('Invalid user credentials');
