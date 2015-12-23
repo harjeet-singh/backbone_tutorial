@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <link rel="icon" type="img/ico" href="img/favicon.ico">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>-->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        
+        <div class="container">
+            <h1>User Manager</h1>
+            <hr>
+            <div class="page">                
+            </div>
+        </div>
+        
+<script id="user-list-template" type="text/x-handlebars-template">
+  <a href="#/logout" >Logout</a>
+            <a href="#/new" class="btn btn-primary">New User</a>
+  <table class="table striped">
+    <thead>
+      <th>Username</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+    </thead>
+    <tbody>
+      {{#models}}
+        {{#attributes}}
+        <tr>
+          <td>{{user_name}}</td>
+          <td>{{first_name}}</td>
+          <td>{{last_name}}</td>
+          <td><a href="#/edit/{{id}}" class="btn btn-primary"> Edit </a></td>
+        </tr>
+        {{/attributes}}
+      {{/models}}
+    </tbody>
+  </table>
+</script>
+<script id="edit-user-template" type="text/x-handlebars-template">
+    <form class="edit-user-form">
+        <legend>Create New User</legend>
+        <label>Username</lable> 
+        <input type="text" name="user_name" value="{{user.attributes.user_name}}" />
+        <lable>First Name</lable>
+        <input type="text" name="first_name" value="{{user.attributes.first_name}}" />
+        <lable>Last Name</lable>
+        <input type="text" name="last_name" value="{{user.attributes.last_name}}" />
+        <input type="hidden" name="id" value="{{user.attributes.id}}" />
+        <hr/>
+        <button type="submit" class="btn">Create</button>
+    </from>
+</script>
+<script id="login-user-template" type="text/x-handlebars-template">
+    <form class="login-user-form">
+        <legend>Login</legend>
+        <table class="table">
+        <tr>
+            <td>Username</td>
+            <td><input type="text" name="user_name" value="" /></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" name="password" value="" /></td>
+        </tr>
+        <tr>
+            <td><button type="submit" class="btn">submit</button></td>
+            <td></td>
+        </tr>
+        
+    </from>
+</script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+        <script src="app.js"></script>
+        <script src="router.js"></script>
+        <script src="view.js"></script>
+        <script src="model.js"></script>
+        <script>
+            $.ajaxPrefilter(function( options ) {
+                    options.url = "http://localhost/BackboneTutorial/rest/v2" +options.url;
+            });
+            
+            $.fn.serializeObject = function() {
+                var o = {};
+                var a = this.serializeArray();
+                $.each(a, function() {
+                    if (o[this.name] !== undefined) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [o[this.name]];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = this.value || '';
+                    }
+                });
+            return o;
+          };
+     
+          var router = new app.router();
+          var userLogin = new app.LoginUserView();
+          var userList = new app.UserListView();
+          var editUser = new app.EditUserView();
+          
+          console.log(router);
+          
+        router.on('route:login', function(){
+           userLogin.render();
+        });
+        
+        router.on('route:listUser', function(){
+           userList.render();
+        });
+        router.on('route:editUser', function(id){
+            editUser.render({id:id});
+        });
+        router.on('route:logout', function(){
+            app.logout();
+            router.navigate('',{trigger:true});
+        });
+
+
+        app.start();
+        
+        </script>
+    </body>
+</html>
