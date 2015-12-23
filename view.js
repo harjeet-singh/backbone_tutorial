@@ -3,15 +3,15 @@ _.extend(app, {
        UserListView: Backbone.View.extend({
            el: '.page',
            template:null,
+           models: null,
            initialize: function(){
             this.compile();
+            this.models = new app.Users();
            },
            render: function(){
                console.log('user list view');
                var self = this;
-               var users = new app.Users();
-              
-               users.fetch({
+               this.models.fetch({
                    success: function(response){
                        self.$el.html(self.template(response));
                    },
@@ -21,56 +21,60 @@ _.extend(app, {
            compile: function(){
                 var source   = $("#user-list-template").html();
                 this.template = Handlebars.compile(source);
-           }
-
+           },
+           deleteUser: function(options){
+               var model = this.models.get(options.id);
+               model.destroy({
+                   success: function(model, response){
+                       router.navigate('#/list', {trigger:true});
+                   }
+               });
+           },
         })},
         
         {
          EditUserView : Backbone.View.extend({
             el: '.page',
             template:null,
+            model: null,
            initialize: function(){
             this.compile();
+            this.model = new app.User();
            },
            compile: function(){
                 var source   = $("#edit-user-template").html();
                 this.template = Handlebars.compile(source);
            },
            render: function(options){
-console.log('edit view');
-               console.log(options);
                var self = this;
                if(options.id){
-                   var user = new app.User();
-                   user.set('id',options.id);
-                   user.fetch({
+                   this.model.set('id',options.id);
+                   this.model.fetch({
                        success: function(user){
-                           console.log(user);
                            self.$el.html(self.template({user:user}));
                        }
                    })
                }else{
-                   this.$el.html($("#edit-user-template").html({user:null}));
+                   this.model = new app.User();
+                   self.$el.html(self.template({user:null}));
                }
                
            },
            events: {
                'submit .edit-user-form': 'saveUser',
+               'click #cancel-btn': 'handleCancel',
            },
            saveUser: function(ev){
                var userDetails = $(ev.currentTarget).serializeObject();
-               console.log(userDetails);
-               var user = new app.User();
-                user.on("invalid", function(model, error) {
-                alert(model.get("user_name") + " " + error);
-              });
-              //return false;
-               user.save(userDetails, {
+               this.model.save(userDetails, {
                    success: function(response){
-                       console.log(response);
                        router.navigate('#/list', {trigger:true});
                    }
                })
+               return false;
+           },
+           handleCancel: function(){
+               router.navigate('#/list',{trigger:true});
                return false;
            }
 
@@ -92,8 +96,6 @@ console.log('edit view');
            },
            loginUser: function(ev){
                var loginDetails = $(ev.currentTarget).serializeObject();
-               console.log(loginDetails);
-               
                app.login(loginDetails, {
                    success: function(response){
                        if(response == 'Invalid user credentials'){
@@ -106,8 +108,6 @@ console.log('edit view');
                });
                return false;
            },
-           
-
         })
     }
-  );
+);

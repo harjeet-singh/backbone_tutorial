@@ -26,7 +26,7 @@ and open the template in the editor.
         
 <script id="user-list-template" type="text/x-handlebars-template">
   <a href="#/logout" >Logout</a>
-            <a href="#/new" class="btn btn-primary">New User</a>
+  <a href="#/new" class="btn btn-primary">New User</a>
   <table class="table striped">
     <thead>
       <th>Username</th>
@@ -41,6 +41,7 @@ and open the template in the editor.
           <td>{{first_name}}</td>
           <td>{{last_name}}</td>
           <td><a href="#/edit/{{id}}" class="btn btn-primary"> Edit </a></td>
+          <td><a href="#/delete/{{id}}" class="btn btn-primary"> Delete </a></td>
         </tr>
         {{/attributes}}
       {{/models}}
@@ -56,9 +57,9 @@ and open the template in the editor.
         <input type="text" name="first_name" value="{{user.attributes.first_name}}" />
         <lable>Last Name</lable>
         <input type="text" name="last_name" value="{{user.attributes.last_name}}" />
-        <input type="hidden" name="id" value="{{user.attributes.id}}" />
         <hr/>
-        <button type="submit" class="btn">Create</button>
+        <button type="submit" class="btn">Save</button>
+        <button id="cancel-btn" class="btn" >Cancel</button>
     </from>
 </script>
 <script id="login-user-template" type="text/x-handlebars-template">
@@ -81,9 +82,9 @@ and open the template in the editor.
     </from>
 </script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+        <script src="lib/underscore-min.js"></script>
+        <script src="lib/backbone-min.js"></script>
+        <script src="lib/handlebars.js"></script>
         <script src="app.js"></script>
         <script src="router.js"></script>
         <script src="view.js"></script>
@@ -125,6 +126,9 @@ and open the template in the editor.
         });
         router.on('route:editUser', function(id){
             editUser.render({id:id});
+        });
+        router.on('route:deleteUser', function(id){
+            userList.deleteUser({id:id});
         });
         router.on('route:logout', function(){
             app.logout();

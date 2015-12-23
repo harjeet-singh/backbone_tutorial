@@ -63,6 +63,15 @@ class MyAPI extends API
                 return  $this->payload;
             }
         }
+        else if($this->method == 'DELETE') {
+            if(!empty($this->verb)){
+                
+                $User = new User();
+                $User->id = $this->verb;
+                $User->delete();
+                return  $this->payload;
+            }
+        }
      }
      
      protected function login() {

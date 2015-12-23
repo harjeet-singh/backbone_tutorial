@@ -7,5 +7,6 @@ app.router = Backbone.Router.extend({
                 'new': 'editUser',
                 'logout': 'logout',
                 'edit/:id': 'editUser',
+                'delete/:id': 'deleteUser',
             },
         });

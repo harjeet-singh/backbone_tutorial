@@ -89,4 +89,10 @@ class MyDB extends mysqli{
         return $result;
     }
     
+    function delete($bean){
+        $query = "DELETE FROM $bean->table WHERE id = '$bean->id'";
+        $result = $this->query($query);
+        return $result;
+    }
+    
 }

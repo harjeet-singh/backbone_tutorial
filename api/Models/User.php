@@ -17,7 +17,7 @@ class User  {
     }
     
     function get_user_list(){
-        $queryStr = "select * from users where deleted = '0'";
+        $queryStr = "select id, first_name, last_name, user_name from users where deleted = '0'";
         $result = $this->db->query($queryStr);
         //writelog($queryStr);
         $userList = array();
@@ -54,5 +54,14 @@ class User  {
         }
     }
     
+    function delete(){
+        $result = $this->db->delete($this);
+        if($result){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     
 }
