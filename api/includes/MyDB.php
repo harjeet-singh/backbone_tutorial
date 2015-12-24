@@ -38,9 +38,7 @@ class MyDB extends mysqli{
         $password_md5 = md5($password);
         
         $queryStr = "select id from users where user_name = '$username' and user_hash= '$password_md5'";
-        writelog($queryStr);
         $user = $this->query($queryStr);
-        writelog($queryStr);
         if($user->num_rows > 0 ){
             $row = $user->fetch_row();
             return true;
@@ -84,7 +82,7 @@ class MyDB extends mysqli{
             }
             $query .= ' ) ';
         }
-        writelog($query);
+        //writelog($query);
         $result = $this->query($query);
         return $result;
     }

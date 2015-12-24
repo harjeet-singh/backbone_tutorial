@@ -25,8 +25,9 @@ _.extend(app,{
             data: {username:loginDetails.user_name, password:loginDetails.password},
             //async: false,
             success: function(response){
-                    app.token = response;
-                    self.setCookie('Token', response, 1);
+                    app.token = response.token;
+                    self.setCookie('Token', response.token, 1);
+                    self.setCookie('LoggedInUser', response.user_name, 1);
                     Backbone.$.ajaxSetup({
                             headers: {'Token' :self.getCookie('Token')}
                     });

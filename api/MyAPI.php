@@ -42,30 +42,21 @@ class MyAPI extends API
         else if($this->method == 'POST') {
             
             $User = new User();
-            $User->first_name = $this->payload->first_name;
-            $User->last_name = $this->payload->last_name;
-            $User->user_name = $this->payload->user_name;
+            $User->populateBean($this->payload);
             $this->payload->id = $User->save();
-            
             return $this->payload;
         }
         else if($this->method == 'PUT') {
-            writelog('$this->payload');
-            writelog($this->payload);
             if(!empty($this->verb)){
-                
                 $User = new User();
                 $User->id = $this->verb;
-                $User->first_name = $this->payload->first_name;
-                $User->last_name = $this->payload->last_name;
-                $User->user_name = $this->payload->user_name;
+                $User->populateBean($this->payload);
                 $this->payload->id = $User->save();
                 return  $this->payload;
             }
         }
         else if($this->method == 'DELETE') {
             if(!empty($this->verb)){
-                
                 $User = new User();
                 $User->id = $this->verb;
                 $User->delete();
@@ -90,7 +81,7 @@ class MyAPI extends API
                         if($user_authenticated){
                             //$this->User->loadUser($username, $password);
                             $_SESSION['Token'] = uniqid();
-                            return $_SESSION['Token'];
+                            return array('token' => $_SESSION['Token'], 'user_name' => $username);
                         }
                         else{
                             throw new Exception('Invalid user credentials');

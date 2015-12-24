@@ -13,7 +13,14 @@ and open the template in the editor.
         <link rel="stylesheet" href="lib/bootstrap.min.css">
         <script src="lib/jquery.min.js"></script>
         <script src="lib/bootstrap.min.js"></script>
+    <style>
+        #logout-link{
+            float:right;
+            text-decoration: underline;
+        }    
+    </style>
     </head>
+    
     <body>
         
         <div class="container">
@@ -24,8 +31,8 @@ and open the template in the editor.
         </div>
         
 <script id="user-list-template" type="text/x-handlebars-template">
-  <a href="#/logout" >Logout</a>
   <a href="#/new" class="btn btn-primary">New User</a>
+  <a href="#/logout" id="logout-link" >Logout</a>
   <table class="table striped">
     <thead>
       <th>Username</th>
@@ -47,20 +54,6 @@ and open the template in the editor.
     </tbody>
   </table>
 </script>
-<script id="edit-user-template" type="text/x-handlebars-template">
-    <form class="edit-user-form">
-        <legend>Create New User</legend>
-        <label>Username</lable> 
-        <input type="text" name="user_name" value="{{user.attributes.user_name}}" />
-        <lable>First Name</lable>
-        <input type="text" name="first_name" value="{{user.attributes.first_name}}" />
-        <lable>Last Name</lable>
-        <input type="text" name="last_name" value="{{user.attributes.last_name}}" />
-        <hr/>
-        <button type="submit" class="btn">Save</button>
-        <button id="cancel-btn" class="btn" >Cancel</button>
-    </from>
-</script>
 <script id="login-user-template" type="text/x-handlebars-template">
     <form class="login-user-form">
         <legend>Login</legend>
@@ -75,6 +68,37 @@ and open the template in the editor.
         </tr>
         <tr>
             <td><button type="submit" class="btn">submit</button></td>
+            <td></td>
+        </tr>
+        
+    </from>
+</script>
+<script id="edit-user-template" type="text/x-handlebars-template">
+    <form class="edit-user-form">
+        <legend>Sign Up</legend>
+        <table class="table">
+        <tr>
+            <td>Username</td>
+            <td><input type="text" name="user_name" value="{{user.attributes.user_name}}" /></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" name="user_hash" value="{{user.attributes.user_hash}}" /></td>
+        </tr>
+        <tr>    
+            <td>Confirm Password</td>
+            <td><input type="password" name="confirm_user_hash" value="{{user.attributes.user_hash}}" /></td>
+        </tr>
+        <tr>
+            <td>First Name</td>
+            <td><input type="text" name="first_name" value="{{user.attributes.first_name}}" /></td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td><input type="text" name="last_name" value="{{user.attributes.last_name}}" /></td>
+        </tr>
+        <tr>
+            <td><button type="submit" class="btn">Save</button> &nbsp; <button id="cancel-btn" class="btn" >Cancel</button></td>
             <td></td>
         </tr>
         
