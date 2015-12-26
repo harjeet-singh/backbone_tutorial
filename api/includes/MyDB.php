@@ -4,8 +4,8 @@ class MyDB extends mysqli{
     private static $instance = null;
     
     private $user = 'root';
-    private $pass = '';
-    private $dbName = 'nyt';
+    private $pass = 'root';
+    private $dbName = 'backbone_tutorial';
     private $dbHost = 'localhost';
  
     public static function getInstance() {
@@ -37,7 +37,7 @@ class MyDB extends mysqli{
         $password = $this->real_escape_string($password);
         $password_md5 = md5($password);
         
-        $queryStr = "select id from users where user_name = '$username' and user_hash= '$password_md5'";
+        $queryStr = "select id from users where user_name = '$username' and password= '$password_md5'";
         $user = $this->query($queryStr);
         if($user->num_rows > 0 ){
             $row = $user->fetch_row();

@@ -6,7 +6,7 @@ class User  {
         'first_name',
         'last_name',
         'user_name',
-        'user_hash',
+        'password',
         'deleted',
     );
     var $db;
@@ -33,7 +33,7 @@ class User  {
     }
     
     function retreive($id){
-        $queryStr = "select user_name, first_name, last_name, user_hash from $this->table where deleted = '0' and id='$id'";
+        $queryStr = "select user_name, first_name, last_name, password from $this->table where deleted = '0' and id='$id'";
         $result = $this->db->query($queryStr);
         //writelog($queryStr);
         $userList = array();
@@ -47,7 +47,7 @@ class User  {
     
     function populateBean($payload){
         foreach($this->fields as $field){
-            if($field == 'user_hash'){
+            if($field == 'password'){
                 $this->$field = md5($payload->$field);
             }
             else{
