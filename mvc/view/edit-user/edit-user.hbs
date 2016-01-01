@@ -1,0 +1,29 @@
+<form class="edit-user-form">
+        <legend>Sign Up</legend>
+        <table class="table">
+        <tr>
+            <td>Username</td>
+            <td><input type="text" name="user_name" value="{{user.attributes.user_name}}" /></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" name="password" value="{{user.attributes.password}}" /></td>
+        </tr>
+        <tr>    
+            <td>Confirm Password</td>
+            <td><input type="password" name="confirm_password" value="{{user.attributes.password}}" /></td>
+        </tr>
+        <tr>
+            <td>First Name</td>
+            <td><input type="text" name="first_name" value="{{user.attributes.first_name}}" /></td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td><input type="text" name="last_name" value="{{user.attributes.last_name}}" /></td>
+        </tr>
+        <tr>
+            <td><button type="submit" class="btn">Save</button> &nbsp; <button id="cancel-btn" class="btn" >Cancel</button></td>
+            <td></td>
+        </tr>
+        
+    </from>

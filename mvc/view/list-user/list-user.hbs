@@ -1,0 +1,22 @@
+<a href="#/new" class="btn btn-primary">New User</a>
+  <a href="#/logout" id="logout-link" >Logout</a>
+  <table class="table striped">
+    <thead>
+      <th>Username</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+    </thead>
+    <tbody>
+      {{#models}}
+        {{#attributes}}
+        <tr>
+          <td>{{user_name}}</td>
+          <td>{{first_name}}</td>
+          <td>{{last_name}}</td>
+          <td><a href="#/edit/{{id}}" class="btn btn-primary"> Edit </a></td>
+          <td><a href="#/delete/{{id}}" class="btn btn-primary"> Delete </a></td>
+        </tr>
+        {{/attributes}}
+      {{/models}}
+    </tbody>
+  </table>
